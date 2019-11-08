@@ -1,0 +1,26 @@
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+    schema: classpath*:sql/schema.sql
+    data: classpath*:sql/data.sql
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: none
+  redis:
+    database: 0
+    password: pass1234
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: 8
+        max-wait: 1ms
+      shutdown-timeout: 100ms
