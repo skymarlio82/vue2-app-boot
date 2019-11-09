@@ -1,5 +1,5 @@
 
-package com.reforgedsrc.app.vue2demo.boot.rest.controller;
+package com.reforgedsrc.app.vue2demo.boot.web.controller;
 
 import javax.servlet.http.HttpSession;
 

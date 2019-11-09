@@ -1,5 +1,5 @@
 
-package com.reforgedsrc.app.vue2demo.boot.rest.model;
+package com.reforgedsrc.app.vue2demo.boot.web.model;
 
 import java.util.Enumeration;
 import java.util.HashSet;

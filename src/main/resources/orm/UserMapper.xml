@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.reforgedsrc.app.vue2demo.boot.data.dao.UserDao">
+    <sql id="USER_ROLE_AUTH_COLUMNS">
+        a.ID as USER_ID,
+        a.USERNAME as USER_NAME,
+        a.PASSWORD as USER_PASSWORD,
+        a.ENABLED as USER_ENABLE,
+        a.LASTPASSWORDRESETDATE as USER_LST_PWD_RESET_DATE,
+        a.MENU as USER_MENU,
+        c.ID as AUTHORITY_ID,
+        c.NAME as AUTHORITY_NAME
+    </sql>
+    <resultMap id="detailedUserResultMap" type="User">
+        <id property="id" column="USER_ID"/>
+        <result property="username" column="USER_NAME"/>
+        <result property="password" column="USER_PASSWORD"/>
+        <result property="enabled" column="USER_ENABLE"/>
+        <result property="lastPasswordResetDate" column="USER_LST_PWD_RESET_DATE"/>
+        <result property="menu" column="USER_MENU"/>
+        <collection property="authorities" ofType="Authority">
+            <id property="id" column="AUTHORITY_ID"/>
+            <result property="name" column="AUTHORITY_NAME"/>
+        </collection>
+    </resultMap>
+    <select id="findByUsername" resultMap="detailedUserResultMap" parameterType="java.lang.String">
+        select
+        <include refid="USER_ROLE_AUTH_COLUMNS"/>
+        from USER a
+        inner join USER_AUTHORITY b on a.ID = b.USER_ID
+        inner join AUTHORITY c on b.AUTHORITY_ID = c.ID
+        where a.USERNAME = #{username}
+    </select>
+    <select id="findAll" resultMap="detailedUserResultMap">
+        select
+        <include refid="USER_ROLE_AUTH_COLUMNS"/>
+        from USER a
+        inner join USER_AUTHORITY b on a.ID = b.USER_ID
+        inner join AUTHORITY c on b.AUTHORITY_ID = c.ID
+    </select>
+
+</mapper>

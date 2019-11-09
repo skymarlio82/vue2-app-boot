@@ -1,5 +1,5 @@
 
-package com.reforgedsrc.app.vue2demo.boot.rest.controller;
+package com.reforgedsrc.app.vue2demo.boot.web.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.reforgedsrc.app.vue2demo.boot.domain.service.UserDetailService;
-import com.reforgedsrc.app.vue2demo.boot.security.entity.User;
+import com.reforgedsrc.app.vue2demo.boot.data.entity.User;
 import com.reforgedsrc.app.vue2demo.boot.security.model.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reforgedsrc.app.vue2demo.boot.constant.WebConstant;
-import com.reforgedsrc.app.vue2demo.boot.rest.model.UserDetail;
-import com.reforgedsrc.app.vue2demo.boot.rest.model.UserProfile;
+import com.reforgedsrc.app.vue2demo.boot.web.model.UserDetail;
+import com.reforgedsrc.app.vue2demo.boot.web.model.UserProfile;
 
 @RestController
 public class UserRestController {

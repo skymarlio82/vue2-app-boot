@@ -1,5 +1,5 @@
 
-package com.reforgedsrc.app.vue2demo.boot.rest.model;
+package com.reforgedsrc.app.vue2demo.boot.web.model;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +44,7 @@ public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
 			// separate the check_sum from token as sessionId
 			String sid = token.substring(idx_start, token.length());
 			writeSidToCookie(sid);
-			session = new CacheHttpSession(null, sid, redisTemplate);
+			session = new CacheHttpSession(request.getSession(), sid, redisTemplate);
 			return session;
 		}
 	}

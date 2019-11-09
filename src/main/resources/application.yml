@@ -5,7 +5,8 @@ spring:
     active: dev
 logging:
   level:
+    root: INFO
     org.springframework: INFO
-    com.wiz.app.vue2.boot: DEBUG
+    com.reforgedsrc.app.vue2demo.boot.data.dao: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"

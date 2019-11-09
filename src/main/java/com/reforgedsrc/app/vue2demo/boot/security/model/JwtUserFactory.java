@@ -4,8 +4,8 @@ package com.reforgedsrc.app.vue2demo.boot.security.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.reforgedsrc.app.vue2demo.boot.security.entity.Authority;
-import com.reforgedsrc.app.vue2demo.boot.security.entity.User;
+import com.reforgedsrc.app.vue2demo.boot.data.entity.Authority;
+import com.reforgedsrc.app.vue2demo.boot.data.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

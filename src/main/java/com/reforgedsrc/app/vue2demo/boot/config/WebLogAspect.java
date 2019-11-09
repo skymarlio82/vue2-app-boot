@@ -16,8 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 public class WebLogAspect {
 
 	ThreadLocal<Long> startTime = new ThreadLocal<>();
+	ThreadLocal<String> calledMethodName = new ThreadLocal<>();
 
-	@Pointcut("execution(public * com.wiz.app.vue2.boot.rest.controller..*.*(..))")
+	@Pointcut("execution(public * com.reforgedsrc.app.vue2demo.boot.web.controller..*.*(..))")
 	public void webLog() {
 
 	}
@@ -25,11 +26,11 @@ public class WebLogAspect {
 	@Before("webLog()")
 	public void doBefore(JoinPoint joinPoint) throws Throwable {
 		startTime.set(System.currentTimeMillis());
-		log.debug("before CTLR_METHOD : {}.{}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
+		calledMethodName.set(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
 	}
 
 	@AfterReturning(pointcut="webLog()", returning="ret")
 	public void doAfterReturning(Object ret) throws Throwable {
-		
+		log.debug("after CTLR_METHOD : {} called by using ({} ms)", calledMethodName.get(), System.currentTimeMillis() - startTime.get());
 	}
 }

@@ -3,7 +3,7 @@ package com.reforgedsrc.app.vue2demo.boot.config;
 
 import javax.annotation.Resource;
 
-import com.reforgedsrc.app.vue2demo.boot.rest.filter.SessionFilter;
+import com.reforgedsrc.app.vue2demo.boot.web.filter.SessionFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class WebConfig {
     private RedisTemplate<String, Object> redisTemplate = null;
 
 	@Bean
-	public FilterRegistrationBean<SessionFilter> abcFilter() {
+	public FilterRegistrationBean<SessionFilter> sessionFilter() {
 		FilterRegistrationBean<SessionFilter> filterRegBean = new FilterRegistrationBean<>();
 		filterRegBean.setFilter(new SessionFilter(redisTemplate));
 		filterRegBean.addUrlPatterns("/*");
