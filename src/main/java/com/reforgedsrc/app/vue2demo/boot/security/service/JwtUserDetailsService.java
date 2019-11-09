@@ -14,16 +14,16 @@ import com.reforgedsrc.app.vue2demo.boot.security.model.JwtUserFactory;
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UserDao userDao = null;
+    @Autowired
+    private UserDao userDao = null;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userDao.findByUsername(username);
-		if (user == null) {
-			throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
-		} else {
-			return JwtUserFactory.create(user);
-		}
-	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDao.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+        } else {
+            return JwtUserFactory.create(user);
+        }
+    }
 }

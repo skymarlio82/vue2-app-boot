@@ -10,5 +10,6 @@ import java.util.List;
 public interface UserDao {
 
     User findByUsername(String username);
+
     List<User> findAll();
 }

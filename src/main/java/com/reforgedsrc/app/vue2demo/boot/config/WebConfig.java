@@ -13,15 +13,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 public class WebConfig {
 
-	@Resource
+    @Resource
     private RedisTemplate<String, Object> redisTemplate = null;
 
-	@Bean
-	public FilterRegistrationBean<SessionFilter> sessionFilter() {
-		FilterRegistrationBean<SessionFilter> filterRegBean = new FilterRegistrationBean<>();
-		filterRegBean.setFilter(new SessionFilter(redisTemplate));
-		filterRegBean.addUrlPatterns("/*");
-		filterRegBean.setOrder(Ordered.LOWEST_PRECEDENCE - 1);
-		return filterRegBean;
-	}
+    @Bean
+    public FilterRegistrationBean<SessionFilter> sessionFilter() {
+        FilterRegistrationBean<SessionFilter> filterRegBean = new FilterRegistrationBean<>();
+        filterRegBean.setFilter(new SessionFilter(redisTemplate));
+        filterRegBean.addUrlPatterns("/*");
+        filterRegBean.setOrder(Ordered.LOWEST_PRECEDENCE - 1);
+        return filterRegBean;
+    }
 }

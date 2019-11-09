@@ -18,29 +18,29 @@ import com.reforgedsrc.app.vue2demo.boot.web.model.CustomHttpServletRequestWrapp
 
 public class SessionFilter implements Filter {
 
-	private RedisTemplate<String, Object> redisTemplate = null;
+    private RedisTemplate<String, Object> redisTemplate = null;
 
-	public SessionFilter(RedisTemplate<String, Object> redisTemplate) {
-		super();
-		this.redisTemplate = redisTemplate;
-	}
+    public SessionFilter(RedisTemplate<String, Object> redisTemplate) {
+        super();
+        this.redisTemplate = redisTemplate;
+    }
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		
-	}
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-		throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest)request;
-		HttpServletResponse res = (HttpServletResponse)response;
-		CustomHttpServletRequestWrapper wrapper = new CustomHttpServletRequestWrapper(req, res, redisTemplate);
-		chain.doFilter(wrapper, response);
-	}
+    }
 
-	@Override
-	public void destroy() {
-		
-	}
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        CustomHttpServletRequestWrapper wrapper = new CustomHttpServletRequestWrapper(req, res, redisTemplate);
+        chain.doFilter(wrapper, response);
+    }
+
+    @Override
+    public void destroy() {
+
+    }
 }

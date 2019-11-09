@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class Authority {
 
-	private Long id = 0L;
+    private Long id = 0L;
 
-	private AuthorityName name = null;
+    private AuthorityName name = null;
 
-	public Authority() {
+    public Authority() {
 
-	}
+    }
 }

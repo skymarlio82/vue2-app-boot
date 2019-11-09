@@ -9,21 +9,21 @@ import lombok.Data;
 @Data
 public class User {
 
-	private Long id = 0L;
+    private Long id = 0L;
 
-	private String username = null;
+    private String username = null;
 
-	private String password = null;
+    private String password = null;
 
-	private Boolean enabled = false;
+    private Boolean enabled = false;
 
-	private Date lastPasswordResetDate = null;
+    private Date lastPasswordResetDate = null;
 
-	private List<Authority> authorities = null;
+    private List<Authority> authorities = null;
 
-	private String menu = null;
+    private String menu = null;
 
-	public User() {
-		
-	}
+    public User() {
+
+    }
 }

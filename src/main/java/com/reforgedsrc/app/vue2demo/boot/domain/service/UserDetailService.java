@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailService {
 
-	@Autowired
-	private UserDao userDao = null;
+    @Autowired
+    private UserDao userDao = null;
 
-	public User getUserByName(String userName) {
-		return userDao.findByUsername(userName);
-	}
+    public User getUserByName(String userName) {
+        return userDao.findByUsername(userName);
+    }
 
-	public List<User> getAllUsers() {
-		return userDao.findAll();
-	}
+    public List<User> getAllUsers() {
+        return userDao.findAll();
+    }
 }

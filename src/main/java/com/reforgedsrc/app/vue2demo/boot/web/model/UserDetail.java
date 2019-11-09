@@ -5,61 +5,61 @@ import java.util.Date;
 
 public class UserDetail {
 
-	private long userId = 0L;
-	private String userName = null;
-	private boolean enabled = false;
-	private Date lastPasswordResetDate = null;
-	private String roleName = null;
+    private long userId = 0L;
+    private String userName = null;
+    private boolean enabled = false;
+    private Date lastPasswordResetDate = null;
+    private String roleName = null;
 
-	public UserDetail() {
-		
-	}
+    public UserDetail() {
 
-	public UserDetail(long userId, String userName, boolean enabled, Date lastPasswordResetDate, String roleName) {
-		this.userId = userId;
-		this.userName = userName;
-		this.enabled = enabled;
-		this.lastPasswordResetDate = lastPasswordResetDate;
-		this.roleName = roleName;
-	}
+    }
 
-	public long getUserId() {
-		return userId;
-	}
+    public UserDetail(long userId, String userName, boolean enabled, Date lastPasswordResetDate, String roleName) {
+        this.userId = userId;
+        this.userName = userName;
+        this.enabled = enabled;
+        this.lastPasswordResetDate = lastPasswordResetDate;
+        this.roleName = roleName;
+    }
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
+    public long getUserId() {
+        return userId;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public Date getLastPasswordResetDate() {
-		return lastPasswordResetDate;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public void setLastPasswordResetDate(Date lastPasswordResetDate) {
-		this.lastPasswordResetDate = lastPasswordResetDate;
-	}
+    public Date getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
 
-	public String getRoleName() {
-		return roleName;
-	}
+    public void setLastPasswordResetDate(Date lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
+    }
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 }

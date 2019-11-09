@@ -24,46 +24,46 @@ import com.reforgedsrc.app.vue2demo.boot.web.model.UserProfile;
 @RestController
 public class UserRestController {
 
-	private String tokenHeader = WebConstant.JWT_HTTP_HEAD_AUTHOR;
+    private String tokenHeader = WebConstant.JWT_HTTP_HEAD_AUTHOR;
 
-	@Autowired
-	private JwtTokenUtil jwtTokenUtil = null;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil = null;
 
-	@Autowired
-	private UserDetailService userDetailService = null;
+    @Autowired
+    private UserDetailService userDetailService = null;
 
-	@RequestMapping(value="/getInfo", method=RequestMethod.GET)
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public UserProfile getUserInformation(HttpServletRequest request) {
-		// skip 'Bearer ' in header's attribute - Authorization
-		String token = request.getHeader(tokenHeader).substring(7);
-		String username = jwtTokenUtil.getUsernameFromToken(token);
-		User user = userDetailService.getUserByName(username);
-		UserProfile userDetail = new UserProfile(user.getId().toString(),
-			user.getUsername(),
-			user.getAuthorities().get(0).getName().toString(),
-			Arrays.asList(user.getMenu().split(",")));
-		return userDetail;
-	}
+    @RequestMapping(value = "/getInfo", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public UserProfile getUserInformation(HttpServletRequest request) {
+        // skip 'Bearer ' in header's attribute - Authorization
+        String token = request.getHeader(tokenHeader).substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        User user = userDetailService.getUserByName(username);
+        UserProfile userDetail = new UserProfile(user.getId().toString(),
+                user.getUsername(),
+                user.getAuthorities().get(0).getName().toString(),
+                Arrays.asList(user.getMenu().split(",")));
+        return userDetail;
+    }
 
-	@RequestMapping(value="/getallusers", method=RequestMethod.GET)
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public List<UserDetail> fetchAllUsers(HttpSession session) {
-		Integer val = (Integer)session.getAttribute("kAdd");
-		System.out.println("kAdd.val = " + val);
-		if (val != null) {
-			session.setAttribute("kAdd", val + 1);
-		} else {
-			session.setAttribute("kAdd", 0);
-		}
-		List<User> users = userDetailService.getAllUsers();
-		List<UserDetail> result = users.stream().map((user) ->
-			new UserDetail(user.getId(),
-				user.getUsername(),
-				user.getEnabled(),
-				user.getLastPasswordResetDate(),
-				user.getAuthorities().get(0).getName().toString()))
-			.collect(Collectors.toList());
-		return result;
-	}
+    @RequestMapping(value = "/getallusers", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public List<UserDetail> fetchAllUsers(HttpSession session) {
+        Integer val = (Integer) session.getAttribute("kAdd");
+        System.out.println("kAdd.val = " + val);
+        if (val != null) {
+            session.setAttribute("kAdd", val + 1);
+        } else {
+            session.setAttribute("kAdd", 0);
+        }
+        List<User> users = userDetailService.getAllUsers();
+        List<UserDetail> result = users.stream().map((user) ->
+                new UserDetail(user.getId(),
+                        user.getUsername(),
+                        user.getEnabled(),
+                        user.getLastPasswordResetDate(),
+                        user.getAuthorities().get(0).getName().toString()))
+                .collect(Collectors.toList());
+        return result;
+    }
 }
