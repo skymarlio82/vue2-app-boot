@@ -1,8 +1,6 @@
 
 package com.reforgedsrc.app.vue2demo.boot.data.entity;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
