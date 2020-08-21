@@ -8,14 +8,14 @@ import '@/styles/index.scss'
 import App from './App'
 import router from './router'
 import store from './store'
-import { default as rest_api } from './utils/rest_api'
+import { default as api } from './utils/api'
 import { hasPermission } from './utils/hasPermission'
 import '@/icons'
 import '@/permission'
 
 Vue.use(ElementUI, { locale })
 
-Vue.prototype.rest_api = rest_api
+Vue.prototype.api = api
 Vue.prototype.hasPerm = hasPermission
 Vue.prototype.moment = Moment
 

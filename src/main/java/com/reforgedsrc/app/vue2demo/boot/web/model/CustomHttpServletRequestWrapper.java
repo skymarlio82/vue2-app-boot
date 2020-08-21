@@ -1,4 +1,3 @@
-
 package com.reforgedsrc.app.vue2demo.boot.web.model;
 
 import javax.servlet.http.Cookie;
@@ -12,17 +11,16 @@ import org.springframework.data.redis.core.RedisTemplate;
 import com.reforgedsrc.app.vue2demo.boot.constant.WebConstant;
 
 public class CustomHttpServletRequestWrapper extends HttpServletRequestWrapper {
-
-    private CacheHttpSession session = null;
-    private HttpServletRequest request = null;
-    private HttpServletResponse response = null;
+    private CacheHttpSession session;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
     @SuppressWarnings("rawtypes")
-    private RedisTemplate redisTemplate = null;
-    private String localhost = null;
+    private RedisTemplate redisTemplate;
+    private String localhost;
 
     @SuppressWarnings("rawtypes")
-    public CustomHttpServletRequestWrapper(HttpServletRequest request, HttpServletResponse response,
-                                           RedisTemplate redisTemplate) {
+    public CustomHttpServletRequestWrapper(
+        HttpServletRequest request, HttpServletResponse response, RedisTemplate redisTemplate) {
         super(request);
         localhost = request.getLocalName();
         this.request = request;

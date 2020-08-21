@@ -2,12 +2,12 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 import { removeLoginStatus, getTokenKey } from '@/utils/auth'
 
-const rest_api = axios.create({
+const api = axios.create({
   baseURL: process.env.BASE_URL,
   timeout: 10*1000
 })
 
-rest_api.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
     config.headers = {
       'Content-Type': 'application/json; charset=utf-8'
@@ -24,7 +24,7 @@ rest_api.interceptors.request.use(
   }
 )
 
-rest_api.interceptors.response.use(
+api.interceptors.response.use(
   (response) => {
     const res = response.data
     console.log("response from remote: ", res)
@@ -43,4 +43,4 @@ rest_api.interceptors.response.use(
   }
 )
 
-export default rest_api
+export default api

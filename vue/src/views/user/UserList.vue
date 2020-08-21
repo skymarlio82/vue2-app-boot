@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { default as rest_api } from '@/utils/rest_api'
+import { default as api } from '@/utils/api'
 
 export default {
   created() {
@@ -92,7 +92,7 @@ export default {
   methods: {
     getAllUsers: function () {
       this.listLoading = true
-      rest_api({
+      api({
         url: 'getallusers',
         method: 'get'
       }).then((data) => {

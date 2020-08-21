@@ -1,4 +1,3 @@
-
 package com.reforgedsrc.app.vue2demo.boot.web.model;
 
 import java.util.Enumeration;
@@ -17,7 +16,6 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 public class CacheHttpSession extends HttpSessionWrapper {
-
     private String sid = null;
     private byte[] sid_bytes = null;
     @SuppressWarnings("rawtypes")

@@ -1,4 +1,3 @@
-
 package com.reforgedsrc.app.vue2demo.boot.config;
 
 import javax.annotation.Resource;
@@ -14,7 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class WebConfig {
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate = null;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Bean
     public FilterRegistrationBean<SessionFilter> sessionFilter() {

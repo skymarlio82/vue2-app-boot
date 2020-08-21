@@ -1,4 +1,3 @@
-
 package com.reforgedsrc.app.vue2demo.boot.config;
 
 import org.springframework.context.annotation.Bean;

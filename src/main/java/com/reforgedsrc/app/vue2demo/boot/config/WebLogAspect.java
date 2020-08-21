@@ -1,6 +1,6 @@
-
 package com.reforgedsrc.app.vue2demo.boot.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -8,13 +8,10 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @Aspect
 @Component
 public class WebLogAspect {
-
     ThreadLocal<Long> startTime = new ThreadLocal<>();
     ThreadLocal<String> calledMethodName = new ThreadLocal<>();
 
@@ -26,7 +23,8 @@ public class WebLogAspect {
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         startTime.set(System.currentTimeMillis());
-        calledMethodName.set(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+        calledMethodName.set(joinPoint.getSignature().getDeclaringTypeName() +
+            "." + joinPoint.getSignature().getName());
     }
 
     @AfterReturning(pointcut = "webLog()", returning = "ret")

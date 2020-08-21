@@ -1,6 +1,6 @@
-
 package com.reforgedsrc.app.vue2demo.boot.config;
 
+import com.reforgedsrc.app.vue2demo.boot.constant.WebConstant;
 import com.reforgedsrc.app.vue2demo.boot.security.model.JwtAuthenticationEntryPoint;
 import com.reforgedsrc.app.vue2demo.boot.security.model.JwtAuthorizationTokenFilter;
 import com.reforgedsrc.app.vue2demo.boot.security.model.JwtTokenUtil;
@@ -21,25 +21,22 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.reforgedsrc.app.vue2demo.boot.constant.WebConstant;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final JwtAuthenticationEntryPoint unauthorizedHandler;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtUserDetailsService jwtUserDetailsService;
 
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler = null;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil = null;
-
-    @Autowired
-    private JwtUserDetailsService jwtUserDetailsService = null;
-
-    private String tokenHeader = WebConstant.JWT_HTTP_HEAD_AUTHOR;
-    private String authenticationPath = WebConstant.JWT_ROUTE_AUTHEN_PATH;
-    private String authenticationRefresh = WebConstant.JWT_ROUTE_AUTHEN_REFRESH;
+    public WebSecurityConfig(
+        JwtAuthenticationEntryPoint unauthorizedHandler,
+        JwtTokenUtil jwtTokenUtil,
+        JwtUserDetailsService jwtUserDetailsService) {
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.jwtUserDetailsService = jwtUserDetailsService;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -58,62 +55,57 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // we don't need CSRF because our token is invulnerable
-                .csrf()
-                .disable()
-                .exceptionHandling()
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            // we don't need CSRF because our token is invulnerable
+            .csrf().disable()
+            .exceptionHandling()
                 .authenticationEntryPoint(unauthorizedHandler)
-                .and()
-                // don't create session
-                .sessionManagement()
+            .and()
+            // don't create session
+            .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
+            .and()
+            .authorizeRequests()
                 // Unsecured H2 Database
-                .antMatchers("/h2-console/**/**")
-                .permitAll()
-                .antMatchers("/auth/**")
-                .permitAll()
-                .anyRequest()
+                .antMatchers("/h2-console/**/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
+            .anyRequest()
                 .authenticated();
         // Custom JWT based security filter
-        httpSecurity.addFilterBefore(new JwtAuthorizationTokenFilter(userDetailsService(), jwtTokenUtil, tokenHeader),
-                UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(
+            new JwtAuthorizationTokenFilter(userDetailsService(), jwtTokenUtil, WebConstant.JWT_HTTP_HEAD_AUTHOR),
+            UsernamePasswordAuthenticationFilter.class);
         // disable page caching
-        httpSecurity
-                .headers()
-                .frameOptions()
-                // required to set for H2 else H2 Console will be blank.
-                .sameOrigin()
-                .cacheControl();
+        http
+            .headers()
+            .frameOptions()
+            // required to set for H2 else H2 Console will be blank.
+            .sameOrigin()
+            .cacheControl();
     }
 
     @Override
-    public void configure(WebSecurity webSecurity) throws Exception {
+    public void configure(WebSecurity web) throws Exception {
         // AuthenticationTokenFilter will ignore the below paths
-        webSecurity.ignoring()
-                .antMatchers(HttpMethod.POST, authenticationPath, authenticationRefresh)
-                .and()
-                // allow anonymous resource requests
-                .ignoring()
+        web
+            .ignoring()
+                .antMatchers(HttpMethod.POST, WebConstant.JWT_ROUTE_AUTHEN_PATH, WebConstant.JWT_ROUTE_AUTHEN_REFRESH)
+            .and()
+            // allow anonymous resource requests
+            .ignoring()
                 .antMatchers(HttpMethod.GET,
-                        "/",
-                        "/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/favicon.ico",
-                        "/**/*.gif",
-                        "/**/*.jpg",
-                        "/**/*.png")
-                .and()
-//			.ignoring()
-//			.antMatchers(HttpMethod.OPTIONS,
-//				"/getInfo")
-//			.and()
-                // Unsecured H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
-                .ignoring()
+                    "/",
+                    "/*.html",
+                    "/**/*.css",
+                    "/**/*.js",
+                    "/favicon.ico",
+                    "/**/*.gif",
+                    "/**/*.jpg",
+                    "/**/*.png")
+            .and()
+            // Unsecured H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
+            .ignoring()
                 .antMatchers("/h2-console/**/**");
     }
 }

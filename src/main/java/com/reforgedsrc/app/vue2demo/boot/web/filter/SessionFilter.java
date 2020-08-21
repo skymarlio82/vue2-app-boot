@@ -1,7 +1,7 @@
-
 package com.reforgedsrc.app.vue2demo.boot.web.filter;
 
-import java.io.IOException;
+import com.reforgedsrc.app.vue2demo.boot.web.model.CustomHttpServletRequestWrapper;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,14 +11,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.data.redis.core.RedisTemplate;
-
-import com.reforgedsrc.app.vue2demo.boot.web.model.CustomHttpServletRequestWrapper;
+import java.io.IOException;
 
 public class SessionFilter implements Filter {
-
-    private RedisTemplate<String, Object> redisTemplate = null;
+    private RedisTemplate<String, Object> redisTemplate;
 
     public SessionFilter(RedisTemplate<String, Object> redisTemplate) {
         super();
@@ -32,7 +28,7 @@ public class SessionFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+        throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         CustomHttpServletRequestWrapper wrapper = new CustomHttpServletRequestWrapper(req, res, redisTemplate);

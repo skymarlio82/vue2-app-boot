@@ -1,5 +1,5 @@
 import { removeLoginStatus, setLoginStatus, removeTokenKey, setTokenKey } from '@/utils/auth'
-import { default as rest_api } from '@/utils/rest_api'
+import { default as api } from '@/utils/api'
 import store from '@/store'
 import router from '@/router'
 
@@ -30,7 +30,7 @@ const user = {
   actions : {
     Login({ commit }, loginForm) {
       return new Promise((resolve, reject) => {
-        rest_api({
+        api({
           url: "auth",
           method: "post",
           data: loginForm
@@ -48,7 +48,7 @@ const user = {
     },
     GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
-        rest_api({
+        api({
           url: 'getInfo',
           method: 'get'
         }).then((data) => {
