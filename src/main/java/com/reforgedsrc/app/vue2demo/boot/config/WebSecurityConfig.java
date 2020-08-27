@@ -103,7 +103,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/favicon.ico",
                     "/**/*.gif",
                     "/**/*.jpg",
-                    "/**/*.png")
+                    "/**/*.png",
+                    "/**/*.map",
+                    "/**/*.woff",
+                    "/**/*.ttf")
             .and()
             // Unsecured H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
             .ignoring()

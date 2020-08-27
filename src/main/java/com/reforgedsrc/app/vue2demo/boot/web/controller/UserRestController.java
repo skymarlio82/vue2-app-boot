@@ -46,7 +46,7 @@ public class UserRestController {
         return userDetail;
     }
 
-    @RequestMapping(value = "/getallusers", method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<UserDetail> fetchAllUsers(HttpSession session) {
         Integer val = (Integer) session.getAttribute("kAdd");
